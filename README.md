@@ -45,9 +45,11 @@ Be aware that any drag and drop will cause the page to reload to the original UR
 A tiny bit deeper, you can set up profiles (see js/profiles/ip.js for an example) with a list of queries, a validator/regex for input, and  make a few adjustments.
 
 
-##I want to change or add a site.
+##I want to change or add a site (and what is a profile)
 
-Sure. The interface call is a bit ugly at the moment, and you should note you can only load one profile at the moment. 
+Sure. The interface call is a bit ugly at the moment, and you should note that it will only load one profile at a  time. Technically, so long as the profiles use the same data validator, there is no reason they can't be chained. 
+But nothing is in place for that yet.
+
 Profiles are loaded from js/profiles, and .js is appended to the name you give. 
 
 In term of the URL, there are two ways to get your query data in the URL :
@@ -59,7 +61,7 @@ When build the query, you can also make use of the date object, which has a coup
 ```javascript
 var date				= {}
 date.raw				= new Date();
-date.fullyear			= date.raw.getFullYear();
+date.fullyear		= date.raw.getFullYear();
 date.month			= date.raw.getMonth()+1;
 date.day				= date.raw.getDate();
 ```
@@ -87,29 +89,39 @@ If you just want to change an existing profile, to add a site, you will need to 
 **Example:**
 
 ```javascript
-	//Argument should  be {'name' : name, 'query': url,'category' : category});
+	//Argument should  be {'name' : name, 'query': url,'category' : category, 'description' : description});
+	cJ.queryList.addQuery({'name' : 'example query','query' : 'http://www.example.com?q=','category' : 'example category'});
 ```
 Yup, it's JSON. Potentially, you could load JSON data to populate the site list from elsewhere, such a server side script.
 
+If you set a category, this becomes available for filtering. Otherwise, the query is assigned a category of 'default'.
+
 ###I want to query something other than IP addresses.
 
-Not a problem, set up a profile. Aside from the addQuery call list above, you will want to add a validator for the data, and set a couple of other things up
+Not a problem, set up a profile. Aside from the addQuery call list above, you will want to add a validator for the data, and set a couple of other things up.
+
+In passing, you can of course create your own query list and later pass it to the framework.
 
 **Example:**
 
 ```javascript
-cJ.queryList.addQuery({'name' :'name, 'query': [URL to which the input can be appended. You can also use a ${data} placeholder],'category' : 'category'});
+var myQList	= new QueryList();
+
+myQList.addQuery({'name' : 'example query','query' : 'http://www.example.com/${data}.php','category' : 'example category'});
+myQList.addQuery({'name' : 'example related','query' : 'http://www.example.com/?related=true&q=','category' : 'example category'});
+
+cJ.queryList		= myQList;
 
 cJ.dataValidator.q =  /.+/;
 
 //These two are not necessary, but populate the page title, the header, and placeholder and label for the main input field
 cJ.titleString		= "FooMatic - Seek random string";
-cJ.inputName	= "Random string";
+cJ.inputName		= "Random string";
 ```
 
 ###Anything else?
 
-Unfortunately, yes. Severa thingsl. 
+Unfortunately, yes. Several things. 
 
 First, this is still work in progress, and changes are to be expected. So if you plan of forking this, don't get too attached, or put in too much work. 
 
@@ -130,7 +142,7 @@ If you want to remove the tools, you can do so temporarily, or permanently.
 By clicking the X button in the tool section, you can remove it from view until the next reload. If you simply don't want to see the tools in the first place, simply edit js/boot.js :
 
 ```javascript
-cJ.showTools			= false; // actually, you can use ANY value otherthan  true
+cJ.showTools			= false; // actually, you can use ANY value other than  true
 ```
 
 ##I don't like the look or the layout.

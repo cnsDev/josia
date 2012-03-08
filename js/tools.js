@@ -15,30 +15,30 @@ cJ.getToolInput	= function(string) {
 
 //URL decoder/encoder .
 var urlDecode	= function (){
-	var data	= cJ.getToolInput();
+	var data		= cJ.getToolInput();
 	cJ.setToolOutput(unescape(data.replace(/\+/g," ")));
 	return false;
 }
 var urlEncode	= function() {
-	var data	= cJ.getToolInput();
+	var data		= cJ.getToolInput();
 	cJ.setToolOutput( escape(data));
 	return false;
 }
 
 //CharCode stuff is straightforward (and the encoding is not, admittedly, all that useful... but there for completeness)
-var charCodeDecode= function() {
+var charCodeDecode	= function() {
 	var data	= cJ.getToolInput();
-	var str	= new String;
-	data		= data.split(",");
+	var str		= new String;
+	data			= data.split(",");
 	for (ch in data) {
 		str+=String.fromCharCode(data[ch]);
 	}
 	cJ.setToolOutput(str);
 }
 
-var charCodeEncode=function() {
+var charCodeEncode	= function() {
 	var data	= cJ.getToolInput();
-	var str	= new String;
+	var str		= new String;
 	for (ch in data) {
 		str+=data.charCodeAt(ch) + ",";
 	}
@@ -49,7 +49,7 @@ var charCodeEncode=function() {
 var utfEncode	= function () {
 	var data		= cJ.getToolInput();
 	data 			= data.replace("/\r\n/g","\n");
-	var str		= new String;
+	var str			= new String;
 	for (var n = 0; n < data.length; n++) {
 		var c = data.charCodeAt(n);
 		if (c < 128) {
@@ -70,8 +70,8 @@ var utfEncode	= function () {
  
 var utfDecode	= function() {
 	var data		= cJ.getToolInput();
-	var str		= new String;
-	var i 		= 0;
+	var str			= new String;
+	var i 			= 0;
 	var c = c1 = c2 = 0;
 	while ( i < data.length ) {
 		c = data.charCodeAt(i);

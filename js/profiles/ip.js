@@ -33,9 +33,9 @@ cJ.queryList.addQuery({'name' :'on_the_same_host','query' :'http://www.onthesame
 
 
 //Also set some environment variables
-cJ.titleString		= "IP Check";
-cJ.inputName	= "IP address";
+cJ.titleString			= "IP Check";
+cJ.inputName			= "IP address";
 
-cJ.dataValidator.q =  /[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/;
+cJ.dataValidator.q 	=  /[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+/;
 
 

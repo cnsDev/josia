@@ -4,12 +4,12 @@
 
 coreJs	= function() { 
 	var $	= this;
-	this.queryDisplayElement	= 'object';
+	this.queryDisplayElement		= 'object';
 	this.queryDetailWrapper		= 'details';
 	this.queryDisplayWrapper	= 'article';
 	this.mainInput						= 'mainInput';
 	this.mainOutput					= 'mainOutput';	
-	this.dataValidator				= {'q' : /^.+/};
+	this.dataValidator					= {'q' : /^.+/};
 	this.queryList						= new QueryList();
 	this.titleString						= document.getElementsByTagName('title')[0].innerHTML;
 	
@@ -37,57 +37,57 @@ coreJs	= function() {
 	
 	this.prependTitle			= function(string) {
 		string	= (string == undefined || string == null || string == '')? cJ.titleString : string;
-		var	obj	= document.getElementsByTagName('title')[0];
+		var	obj			= document.getElementsByTagName('title')[0];
 		obj.innerHTML	= string + "- "+ obj.innerHTML;
 	}
 	
 	//Input label
-	this.setInputLabel	 	= function(string) {
+	this.setInputLabel	 		= function(string) {
 		string	= (string == undefined || string == null || string == '')? cJ.inputName : string;
 		var	obj	= $.getNode($.mainInput);
 		obj.setAttribute('placeholder',string);
 		obj.parentNode.getElementsByTagName('label')[0].innerHTML	= string ;
 	}
 	//Header
-	this.setHeader	 	= function(string) {
+	this.setHeader	 			= function(string) {
 		string						= (string == undefined || string == null || string == '')? cJ.titleString : string;
 		var	obj					= document.getElementsByTagName('h1')[0];
-		obj.innerHTML 		= string.link(String(document.location).split("?")[0]) ;
+		obj.innerHTML 			= string.link(String(document.location).split("?")[0]) ;
 	}
 	//Output related
-	this.getOutput		= function(id) {
+	this.getOutput				= function(id) {
 		id	= (id == undefined || id == null || id == '')? cJ.mainOutput : id;
 		return this.getNode(id);
 	}
-	this.setOutput	= function(string,id) {
+	this.setOutput				= function(string,id) {
 		var obj				= $.getOutput(id);
 		obj.innerHTML	= string;
 	}
-	this.addOutput	= function(string,id) {
+	this.addOutput				= function(string,id) {
 		var obj				= $.getOutput(id);
 		obj.innerHTML	+= string;
 	}
 	
 	//Input related
 	
-	var getMainInput = function(id) {
+	var getMainInput 			= function(id) {
 		id	= (id == undefined || id == null || id == '')? cJ.mainInput : id;
 		var obj	=document.getElementById(id);
 		return {'q'	: String(obj.value).match($.dataValidator['q'])};
 	}
 
-	var getUrlInput	= function() {
+	var getUrlInput				= function() {
 		var args	= String(document.location).replace(location.hash,'').split('?').pop().split("&");
 		var obj		= {}
 		for(var arg in args) {
-			arg	= args[arg].split("=")
+			arg		= args[arg].split("=")
 			obj[arg[0]]	= ($.dataValidator[arg[0]] == undefined)? arg[1] : arg[1].match($.dataValidator[arg[0]]);
 		}
 		return obj;	
 	}
 	
-	var getInput	= function() {
-		obj	= getUrlInput();
+	var getInput					= function() {
+		obj			= getUrlInput();
 		if (getMainInput().q != null && getMainInput().q.length > 0 ) {
 			obj['q']	=	getMainInput().q;
 		} else {
@@ -138,7 +138,7 @@ coreJs	= function() {
 			catNode.checked					= 'checked';
 			catNode.id							= "filter_" + obj.name;
 			catNodeLabel						= document.createElement('label');
-			catNodeLabel.innerHTML	= obj.name.replace("_"," ");
+			catNodeLabel.innerHTML		= obj.name.replace("_"," ");
 			$.bindEvent(catNode,'change',toggleFilter,false);
 			catNodeLabel.setAttribute('for',catNode.id);
 			filterFormNode.appendChild(catNode);
@@ -164,9 +164,9 @@ coreJs	= function() {
 	}
 	
 	this.bootstrap	= function(profile) {
-		profile	= (profile == undefined || profile == null || profile == '')? cJ.profile : profile;
+		profile					= (profile == undefined || profile == null || profile == '')? cJ.profile : profile;
 		profileNode			= document.createElement('script');
-		profileNode.src	= "js/profiles/"+profile+".js";
+		profileNode.src		= "js/profiles/"+profile+".js";
 		profileNode.type	= "text/javascript";
 		document.getElementsByTagName('head')[0].appendChild(profileNode);
 		if(profileNode.loaded) {
@@ -237,16 +237,17 @@ function QueryDisplay(query,output) {
 		if (document.getElementById(query.name)) {
 			this.container	= document.getElementById(query.name);
 		} else {
+			// Yes, this could (and likely should) be moved to a builder function.
 			cNode								= document.createElement(cJ.queryDisplayWrapper);
 			cNode.id							= query.name;
-			cNode.className	= query.category;
+			cNode.className			= query.category;
 			
 			cNode.setAttribute('draggable',true);
 			cJ.bindEvent(cNode,'dragstart',dragStart,false);
 			cJ.bindEvent(cNode,'drop',dragInsert,false);
 			cJ.bindEvent(cNode,'ondragover',dragAllow,false);
 			
-			detailsNode	= document.createElement(cJ.queryDetailWrapper);
+			detailsNode						= document.createElement(cJ.queryDetailWrapper);
 			detailsNode.innerHTML	= '<h2> \
 				<a href="'+query.url+'" title="'+ query.name +'">'+ query.name +'</a> \
 				<a id="'+query.name+'_display"></a> \
@@ -283,10 +284,10 @@ function QueryDisplay(query,output) {
 	//Self populated values
 	var node						= document.getElementById(query);
 	this.id							= node.id;
-	this.queryNode			= node.getElementsByTagName(cJ.queryDisplayElement)[0];
+	this.queryNode				= node.getElementsByTagName(cJ.queryDisplayElement)[0];
 	this.url							= node.getElementsByTagName(cJ.queryDisplayElement)[0].nextSibling.href;
 	this.contentNode			= node.getElementsByTagName('ul')[0]
-	this.presentNode		= node.getElementsByTagName('ul')[1];
+	this.presentNode			= node.getElementsByTagName('ul')[1];
 	
 	//Listing functions
 	this.contentList			= function () {
@@ -433,7 +434,7 @@ var dragAllow	= function(ev) {
 }
 
 var dragInsert	= function(ev) {
-	var data				= ev.dataTransfer.getData("Text");
+	var data		= ev.dataTransfer.getData("Text");
 	ev.preventDefault();
 	// Drag insert is only done on the QueryDisplay... and from one, too.
 	if (ev.target.tagName.toLowerCase() != cJ.queryDisplayWrapper || data.length == 0	) return false;
@@ -447,7 +448,7 @@ var dragInsert	= function(ev) {
 }
 
 var dragDrop	= function(ev) {
-	var data				= ev.dataTransfer.getData("Text");
+	var data		= ev.dataTransfer.getData("Text");
 	if (ev.target.tagName.toLowerCase() == cJ.getNode(cJ.mainOutput).tagName.toLowerCase()) {
 		var contentNode	= new QueryDisplay(data);
 	
@@ -471,7 +472,7 @@ var removeEntry	= function(ev,data) {
 }
 
 //Category based filtering
-var toggleFilter	= function(ev) {
+var toggleFilter		= function(ev) {
 	var	category	= ev.target.id.replace("filter_","");
 	var	nodeList	= document.getElementById("mainOutput").childNodes;
 	for(var node in nodeList) {
