@@ -4,7 +4,8 @@ _Note : This is still in dev, and does not work on all browsers (at least not as
 
 ## A quick and dirty query aggregation tool writen in javascript
 
-JOSIA basically provides a quick and dirty way of sending the same query (say for a domain name or IP address) to multiple sites, and display the results in a single window.
+JOSIA basically provides a quick and dirty way of sending the same query (say for a domain name or IP address) to multiple sites, and display the results in a single window. 
+It also provides a few, simple, string manipulation tools (url encode/decode, etc).
 It is essentially a time saver during security investigations, letting you get all the data you might want in a single query. It is intended to take either keyboard input or input via GET queries. 
 
 ##What do I need to know?
@@ -41,15 +42,31 @@ You can also cycle through the boxes in two ways, flicking the box onto the back
 You can also drop the content from one box into another. At the moment, and by design, you can drop the content from every other box into a given box once.
 Be aware that any drag and drop will cause the page to reload to the original URL.
 
-At tiny bit deeper, you can set up profiles (see js/profiles/ip.js for an example) with a list of queries, a validator/regex for input, and  make a few adjustments.
+A tiny bit deeper, you can set up profiles (see js/profiles/ip.js for an example) with a list of queries, a validator/regex for input, and  make a few adjustments.
 
 
 ##I want to change or add a site.
 
 Sure. The interface call is a bit ugly at the moment, and you should note you can only load one profile at the moment. 
+Profiles are loaded from js/profiles, and .js is appended to the name you give. 
+
+In term of the URL, there are two ways to get your query data in the URL :
+* by default, it is appended to the end of the query string (i.e. http://www.example.com/?q= becomes http://www.example.com/?q=(your data here))
+* or you can use the ${data} placeholder (i.e. http://www.example.com/${data}.html becomes http://www.example.com/(your data here).html)
+
+When build the query, you can also make use of the date object, which has a couple of shorthands to the more likely strings you might need, and an accessor to the core object
+
+```javascript
+var date				= {}
+date.raw				= new Date();
+date.fullyear			= date.raw.getFullYear();
+date.month			= date.raw.getMonth()+1;
+date.day				= date.raw.getDate();
+```
+
 To change the profile loaded in the first place, you have two options :
 
-* in base.html	: add the name (at trailing .js will be added) to the cJ.boostrap() call added to the body onload attribute. 
+* in base.html	: add the name to the cJ.boostrap() call added to the body onload attribute. 
 
 **Example:**
 
@@ -70,7 +87,7 @@ If you just want to change an existing profile, to add a site, you will need to 
 **Example:**
 
 ```javascript
-	cJ.queryList.addQuery({'name' : name, 'query': [URL to which the input can be appended. You can also use a ${data} placeholder],'category' : category});
+	//Argument should  be {'name' : name, 'query': url,'category' : category});
 ```
 Yup, it's JSON. Potentially, you could load JSON data to populate the site list from elsewhere, such a server side script.
 
@@ -92,7 +109,7 @@ cJ.inputName	= "Random string";
 
 ###Anything else?
 
-Unfortunately, yes. Several. 
+Unfortunately, yes. Severa thingsl. 
 
 First, this is still work in progress, and changes are to be expected. So if you plan of forking this, don't get too attached, or put in too much work. 
 
@@ -103,14 +120,24 @@ cJ.queryDisplayElement	= 'iframe';
 ```
 Google is a prime example of a site that would not work. You can of course use the tool to generate the queries anyway. 
 
-## I don't like the look or the layout.
+
+##What are the tools in the tool section, and how do I get rid of them?
+
+The tools are a few simple string manipulation tools. The same tools (and more) are available via such Firefox plugins as HackBar, but that's not necessarily something you want to have or use at work.
+The best way to get to grips with them is experiment. Pop some input into the relevant field, and try the buttons. 
+
+If you want to remove the tools, you can do so temporarily, or permanently. 
+By clicking the X button in the tool section, you can remove it from view until the next reload. If you simply don't want to see the tools in the first place, simply edit js/boot.js :
+
+```javascript
+cJ.showTools			= false; // actually, you can use ANY value otherthan  true
+```
+
+##I don't like the look or the layout.
 
 Change style/base.css, or create another css file and modify base.html to make use of it. 
 There isn't much to the 'style' you couldn't get from the base.css. If there is, experiment, or contact us. 
-
-
-
-
+Efforts have been made to style based on ID and/or location, should you want to change the actual elements in the page. 
 
 #Who?
 David Kaye[http://www.custodian.nl]

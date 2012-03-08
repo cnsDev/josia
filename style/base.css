@@ -68,16 +68,16 @@ button {
 
 a:hover, a:target,button:hover { color : #f00;}
 
-#header,#footer,a,button,label {
+#header,#footer,#toolSection ,a,button,label {
 	font-weight : bold;
 	font-family : Impact;
 	margin		: .25em;
 }
 
-li,li > a, #inputForm {
+li,li > a, #inputForm, #toolSection {
 	border-radius	: 10px;
 }
-#inputForm, #mainOutput > * > :first-child .info {
+#inputForm, #mainOutput > * > :first-child .info,#toolSection {
 	background-color	: rgba(30,30,30,0.9);
 }
 
@@ -89,6 +89,34 @@ li,li > a, #inputForm {
 
 /* Footer */
 #footer { text-align : right; padding : 1%;}
+
+/* Tool section */
+#toolSection:before,#toolSection:after {
+	content	: '';
+	display		: table;
+	clear		: both;
+}
+#toolSection { margin : .5em 0;}
+#toolSection > *{
+	display		: inline-block;	
+}
+#toolSection h3 { float	: left; clear	: both;}
+#toolSection > .field { width	: 70%; float	: right;}
+#toolSection > .field > * { display	: block; width	: 100%;}
+
+#toolSection #toolSectionMenu {
+	min-width				: 27%;
+	float						: left;
+	table-layout			: auto;
+	font-size				: .85em;
+}
+
+#toolSection #toolSectionMenu > li > button {
+	display			: inline-block;
+	width			: 49%;
+	margin			: .5%;
+	float				: left;
+}
 	
 /* Main input */
 #inputForm { 
@@ -97,8 +125,9 @@ li,li > a, #inputForm {
 	top		: 1em;
 	z-index : 42;
 	font-size	: .7em;
+	margin-bottom	: 0px;
 }
-#inputForm:hover { font-size : 1em; border : outset 2px #666;}
+#inputForm:hover { font-size : .9em; border : outset 2px #666;}
 #inputForm form { margin : .25em;padding : .5em;}
 #inputForm form:first-child { margin-bottom : 1.5em; }
 #inputForm form:first-child label:before {
@@ -106,12 +135,11 @@ li,li > a, #inputForm {
 	display	: table;
 	clear		: both;
 }
-#inputForm form:first-child input[type='text']	{ padding : .25em; margin : .25em; font-size	: 1.2em;}
+#inputForm form:first-child input[type='text']	{ padding : .25em; margin : .25em; font-size	: 1.1em;}
 #inputForm form:first-child input[type='submit']{
 	float	: right;
 }
 #inputForm form:last-child 		{ display	: none; }
-#inputForm form:last-child  input { font-size : 1.25em}
 #inputForm form:last-child:before { content	: "Categories";display	: table; clear	: both;}
 #inputForm:hover form:last-child { display	: block;}
 #inputForm  label:after {
@@ -133,7 +161,7 @@ li,li > a, #inputForm {
 	resize			: both;
 	overflow		: auto;
 	overflow-y		: scroll;
-	width			: 30em;
+	width				: 30em;
 	height			: 300px;
 	font-size		: .9em;
 	padding			: 0 2% ;

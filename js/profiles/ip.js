@@ -2,11 +2,10 @@
 	Pre-populated sites
 	The list is not exhaustive, but at time of release, all links worked. 
 	There is a fairly frequent issue when, for whatever reason, some sites stop working (i.e. google starts to prevent embedding).
-	You could represent these groupings in the sites object, but that would make the parsing more complicated, and at the end of the day, doesn't add a lot.
 	
 	The syntax is hopefully obvious from the examples, but just in case :
-		- to add any site, you need to create a new key/value pair in the sites object. You can use the syntax below (cJ.queryList.addQuery((key) = value), or siteList[(key)] = value.
-		In real life, there should be no parentheses around key. 
+		- to add any site, you need to set up a JSON-like object that specifies, at least, a url and a name. An optional category, used for filtering, can also be provided. 
+		Technically, so can a description, but it doesn't do anything at the moment.
 		
 		There are two ways for the IP information to be put into the URL :
 			- default : it is added on to the end

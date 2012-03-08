@@ -128,12 +128,14 @@ coreJs	= function() {
 	//Build filtering
 	this.buildFilterForm	= function() {
 		var	filterFormNode				= document.createElement('form');
+		filterFormNode.setAttribute('action','');
+		filterFormNode.setAttribute('method','get');
+		
 		for (category in $.queryList.categories) {
 			var	obj								= $.queryList.categories[category];
 			var	catNode						= document.createElement('input');
-			catNode.action					= '';
 			catNode.type						= 'checkbox';
-			catNode.checked				= 'checked';
+			catNode.checked					= 'checked';
 			catNode.id							= "filter_" + obj.name;
 			catNodeLabel						= document.createElement('label');
 			catNodeLabel.innerHTML	= obj.name.replace("_"," ");
@@ -156,6 +158,9 @@ coreJs	= function() {
 		$.setTitle();
 		$.setHeader();
 		$.setInputLabel();
+		if ($.showTools == true) {
+			buildToolSection();
+		}
 	}
 	
 	this.bootstrap	= function(profile) {
@@ -454,7 +459,10 @@ var dragDrop	= function(ev) {
 	return false;
 }
 
-// Other reactive stuff
+/*
+	Other reactive stuff
+*/
+
 //Remove entry buttons (to remove content from individual containers)
 var removeEntry	= function(ev,data) {
 	var receiver		= new QueryDisplay(new String(ev.target.parentNode.parentNode.parentNode.parentNode.parentNode.id));
@@ -462,6 +470,7 @@ var removeEntry	= function(ev,data) {
 	return false;
 }
 
+//Category based filtering
 var toggleFilter	= function(ev) {
 	var	category	= ev.target.id.replace("filter_","");
 	var	nodeList	= document.getElementById("mainOutput").childNodes;
@@ -500,7 +509,7 @@ function genericDataProcessor(data,list,output){
 
 
 //Date stuff. This is here so it can be used in URLs as needed
-var date				= {}
+var date				= {};
 date.raw				= new Date();
 date.fullyear			= date.raw.getFullYear();
 date.month			= date.raw.getMonth()+1;

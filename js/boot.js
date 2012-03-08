@@ -3,3 +3,4 @@ var cJ						= new coreJs;
 cJ.dataProcessor		= genericDataProcessor;
 //This bit you can change, or override when calling the bootstrap method
 cJ.profile					= 'ip';
+cJ.showTools			= true;
