@@ -1,0 +1,195 @@
+/*
+	CSS reset taken from  http://meyerweb.com/eric/tools/css/reset/ 
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+/* end CSS reset */
+
+
+body {
+	background-color 	: #000;
+	color						: #fff;
+	overflow-y				: scroll;
+}
+
+a { 
+	text-decoration : none;
+	color				: inherit;
+}
+
+button {
+	background-color		: transparent;
+	font-size					: .7em;
+	 padding : .25em;
+	border-radius			: 999em;
+}
+
+a:hover, a:target,button:hover { color : #f00;}
+
+#header,#footer,a,button,label {
+	font-weight : bold;
+	font-family : Impact;
+	margin		: .25em;
+}
+
+li,li > a, #inputForm {
+	border-radius	: 10px;
+}
+#inputForm, #mainOutput > * > :first-child .info {
+	background-color	: rgba(30,30,30,0.9);
+}
+
+/* Header */
+#header h1 { 
+	font-size	: 1.8em;
+	padding : 1%;
+}
+
+/* Footer */
+#footer { text-align : right; padding : 1%;}
+	
+/* Main input */
+#inputForm { 
+	position : fixed;
+	right 		: 1em; 
+	top		: 1em;
+	z-index : 42;
+	font-size	: .7em;
+}
+#inputForm:hover { font-size : 1em; border : outset 2px #666;}
+#inputForm form { margin : .25em;padding : .5em;}
+#inputForm form:first-child { margin-bottom : 1.5em; }
+#inputForm form:first-child label:before {
+	content	: '';
+	display	: table;
+	clear		: both;
+}
+#inputForm form:first-child input[type='text']	{ padding : .25em; margin : .25em; font-size	: 1.2em;}
+#inputForm form:first-child input[type='submit']{
+	float	: right;
+}
+#inputForm form:last-child 		{ display	: none; }
+#inputForm form:last-child  input { font-size : 1.25em}
+#inputForm form:last-child:before { content	: "Categories";display	: table; clear	: both;}
+#inputForm:hover form:last-child { display	: block;}
+#inputForm  label:after {
+	content	: '';
+	display	: table;
+	clear		: both;
+}
+
+/* Main output section */
+
+/* Style for the queryWrapper */
+#mainOutput > h2 { 
+	display: block; 
+	margin	: 2em 0;
+}
+
+#mainOutput > *:not(h2) { 
+	display			: inline-block;
+	resize			: both;
+	overflow		: auto;
+	overflow-y		: scroll;
+	width			: 30em;
+	height			: 300px;
+	font-size		: .9em;
+	padding			: 0 2% ;
+	margin			: .5% .75%;
+	border			: dashed 2px #fff;
+	position			: relative;
+}
+
+#mainOutput > * > a:hover:after {
+	content	: attr(href);
+	background-color	: #111;
+	display					: table;
+	margin					: 0 0 .25em 0;
+}
+#mainOutput > * > * {
+	display		: block;
+	position		: relative;
+	width		: 100%;	
+}
+
+/* Style for the queryElement */
+
+#mainOutput > * > :not(a):not(:first-child) {
+	min-height					: 220px;
+	max-height				: 95%;
+	height						: 85%;
+	overflow					: auto;
+	margin						: 1em 0;
+	font-size					: 80%;
+	background-color		: #fff;
+	
+}
+
+/* Style for details */
+
+#mainOutput > * > :first-child { 
+	padding 			: .5%;
+	margin-bottom 	: 1em;
+}
+
+#mainOutput > * > :first-child  * 	{ display	: inline-block; }
+#mainOutput > * > :first-child > * { width	: 100%; } 
+#mainOutput > * > :first-child > h2 > a:last-child:target:after { 
+	content					: 'Active';
+	color						: #f00;  
+	background-color	: #fff;
+	border					: dashed #f00 1px; 
+	padding 				: 2%; 
+	font-size				: 1.5em;
+}
+#mainOutput > * > :first-child > .info { position	: absolute; right	: 999em; z-index	: 36; top : 90%;	}
+#mainOutput > * > :first-child:hover .info { right	: 0;}
+#mainOutput > * > :first-child > *:not(:first-child) > ul > li 		{ float	: left ;margin	: 1.5%; border	: inset 2px #ccc;  font-size	: .8em;}
+#mainOutput > * > :first-child > *:not(:first-child) > ul > li > a { padding	: .25em;}
+#mainOutput > * > :first-child .info  ul:before { display : block;  content : attr(class); padding : .25em; clear	: both; background-color	: rgba(60,60,60,0.8); }
+
+/* Finally, the hidden class, used for filtering */
+
+.hidden {visibility : hidden; display	: none !important; }

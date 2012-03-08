@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Custodian Network Security</title>
+		<link href="style/base.css" media="all" rel="stylesheet" type="text/css" />
+		<script style="text/javascript" src="js/core.js" ></script>
+		<script style="text/javascript" src="js/boot.js" ></script>
+	</head>
+	<body onload='cJ.bootstrap();'>
+		<header id="header">
+			<h1></h1>
+			<h2>- <a href="http://www.custodian.nl" title="Custodian Network Security">Custodian Network Security</a></h2>
+		</header>
+		<div id="inputForm" >
+			<form action="" method="get" onsubmit="return cJ.processData();">
+				<p class="field">
+					<input type="text" id="mainInput"  name="q" autofocus="autofocus" required="required" />
+					<label for="mainInput"></label>
+				</p>
+				<input type="submit" value="Search" />
+			</form>
+		</div>
+		<noscript><h4>You need to enable javascript in order for this page to work. If  you use something like RequestPolicy, you should also allow requests from this page</h4></noscript>
+		<section id="mainOutput" ondrop="return dragDrop(event);" ondragover="return dragAllow(event);" >
+		
+		</section>
+		<footer id="footer">
+			<p>Copyright 2011-<script type="text/javascript"> d = new Date();document.write( d.getFullYear());</script> - <a href="http://www.custodian.nl" id="footer_link">www.custodian.nl</a></p>
+			<p>Contact us at <a href="mailto:info@custodian.nl">info@custodian.nl</a></p>
+		</footer>
+	</body>
+</html>
