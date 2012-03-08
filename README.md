@@ -5,7 +5,7 @@ _Note : This is still in dev, and does not work on all browsers (at least not as
 ## A quick and dirty query aggregation tool writen in javascript
 
 JOSIA basically provides a quick and dirty way of sending the same query (say for a domain name or IP address) to multiple sites, and display the results in a single window. 
-It also provides a few, simple, string manipulation tools (url encode/decode, etc).
+It also provides a few, simple, string manipulation tools (url encode/decode, utf8 encode/decode, and charCode encode/decode).
 It is essentially a time saver during security investigations, letting you get all the data you might want in a single query. It is intended to take either keyboard input or input via GET queries. 
 
 ##What do I need to know?
@@ -53,13 +53,36 @@ But nothing is in place for that yet.
 Profiles are loaded from js/profiles, and .js is appended to the name you give. 
 
 In term of the URL, there are two ways to get your query data in the URL :
-* by default, it is appended to the end of the query string (i.e. http://www.example.com/?q= becomes http://www.example.com/?q=(your data here))
-* or you can use the ${data} placeholder (i.e. http://www.example.com/${data}.html becomes http://www.example.com/(your data here).html)
 
-When build the query, you can also make use of the date object, which has a couple of shorthands to the more likely strings you might need, and an accessor to the core object
+* by default, it is appended to the end of the query string :
+
+**Example:**
+
+```
+ http://www.example.com/?q=
+```
+	becomes
+```
+ http://www.example.com/?q=(your data here))
+```
+
+* or you can use the ${data} placeholder :
+
+**Example:**
+
+```
+http://www.example.com/${data}.html
+```
+	becomes
+```
+http://www.example.com/(your data here).html
+```
+
+
+When building the query, you can also make use of the date object, which has a couple of shorthands to the more likely strings you might need, and an accessor to the core object
 
 ```javascript
-var date				= {}
+var date				= {};
 date.raw				= new Date();
 date.fullyear		= date.raw.getFullYear();
 date.month			= date.raw.getMonth()+1;
@@ -73,10 +96,10 @@ To change the profile loaded in the first place, you have two options :
 **Example:**
 
 ```javascript
-cJ.boostrap('personal');
+<body onload="cJ.boostrap('personal')">;
 ```
 
-* in js/boot.js		: change cJ.profile 
+* in js/boot.js		: 
 	
 **Example:**
 
@@ -110,9 +133,9 @@ var myQList	= new QueryList();
 myQList.addQuery({'name' : 'example query','query' : 'http://www.example.com/${data}.php','category' : 'example category'});
 myQList.addQuery({'name' : 'example related','query' : 'http://www.example.com/?related=true&q=','category' : 'example category'});
 
-cJ.queryList		= myQList;
+cJ.queryList			= myQList;
 
-cJ.dataValidator.q =  /.+/;
+cJ.dataValidator.q 	=  /.+/;
 
 //These two are not necessary, but populate the page title, the header, and placeholder and label for the main input field
 cJ.titleString		= "FooMatic - Seek random string";
@@ -136,7 +159,15 @@ Google is a prime example of a site that would not work. You can of course use t
 ##What are the tools in the tool section, and how do I get rid of them?
 
 The tools are a few simple string manipulation tools. The same tools (and more) are available via such Firefox plugins as HackBar, but that's not necessarily something you want to have or use at work.
+
+There are encoders and decoders for :
+
+* HTML/URL encoding
+* CharCode 
+* UTF8
+
 The best way to get to grips with them is experiment. Pop some input into the relevant field, and try the buttons. 
+
 
 If you want to remove the tools, you can do so temporarily, or permanently. 
 By clicking the X button in the tool section, you can remove it from view until the next reload. If you simply don't want to see the tools in the first place, simply edit js/boot.js :
